@@ -24,6 +24,8 @@ USER rails
 
 WORKDIR /usr/src/app
 
+ENV BUNDLE_APP_CONFIG /usr/src/app/.bundle
+
 EXPOSE 3000 3000
 
 CMD ["/bin/bash"]
