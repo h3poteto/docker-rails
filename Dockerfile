@@ -22,12 +22,6 @@ RUN useradd -m -s /bin/bash rails && \
 
 USER rails
 
-# localeの設定
-ENV LC_ALL ja_JP.UTF-8
-ENV LC_CTYPE ja_JP.UTF-8
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP.UTF-8
-
 WORKDIR /usr/src/app
 
 EXPOSE 3000 3000
