@@ -1,39 +1,35 @@
-FROM ubuntu:14.04
+FROM ruby:2.3.1-slim
 
 # prepare packages
-RUN apt-get update && apt-get install -y \
-  build-essential curl git zlib1g-dev libssl-dev libreadline-dev libyaml-dev libxml2-dev libxslt-dev mysql-client libmysqlclient-dev mecab mecab-ipadic libmecab-dev libmagickwand-dev imagemagick
+RUN set -x && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+      build-essential \
+      locales task-japanese \
+      git \
+      curl \
+      mysql-client \
+      libmysqlclient-dev \
+      libmagickwand-dev \
+      imagemagick && \
+      rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+
 
 # create user
-RUN useradd -m -s /bin/bash rails
-RUN echo 'rails:password' | chpasswd
-RUN echo 'rails ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/rails
+RUN useradd -m -s /bin/bash rails && \
+    mkdir -p /usr/src/app && \
+    chown rails:rails /usr/src/app $BUNDLE_APP_CONFIG
 
 USER rails
-ENV HOME /home/rails
-ENV RUBY_VERSION 2.2.2
 
-# rbenv install
-RUN git clone https://github.com/rbenv/rbenv.git ${HOME}/.rbenv
-RUN mkdir -p ${HOME}/.rbenv/plugins && git clone https://github.com/sstephenson/ruby-build.git ${HOME}/.rbenv/plugins/ruby-build
+# localeの設定
+ENV LC_ALL ja_JP.UTF-8
+ENV LC_CTYPE ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP.UTF-8
 
-# setupt rbenv environments
-RUN echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ${HOME}/.bashrc
-RUN echo 'eval "$(rbenv init -)"' >> ${HOME}/.bashrc
-ENV PATH ${HOME}/.rbenv/bin:$PATH
+WORKDIR /usr/src/app
 
-# install ruby
-RUN rbenv install ${RUBY_VERSION}
-RUN rbenv global ${RUBY_VERSION}
-
-RUN eval "$(rbenv init -)" && gem install bundler
-
-# create working directory
-RUN mkdir ${HOME}/app
-
-WORKDIR ${HOME}/app
-
-
-EXPOSE 3000
+EXPOSE 3000 3000
 
 CMD ["/bin/bash"]
