@@ -8,6 +8,7 @@ RUN set -x && \
       locales task-japanese \
       git \
       curl \
+      ssh \
       mysql-client \
       libmysqlclient-dev \
       libmagickwand-dev \
