@@ -21,7 +21,17 @@ RUN useradd -m -s /bin/bash rails && \
     mkdir -p /usr/src/app && \
     chown rails:rails /usr/src/app $BUNDLE_APP_CONFIG
 
+RUN echo 'ja_JP.UTF-8 UTF-8' >> /etc/locale.gen && \
+    locale-gen && \
+    update-locale LANG=ja_JP.UTF-8
+
 USER rails
+
+# localeの設定
+ENV LC_ALL ja_JP.UTF-8
+ENV LC_CTYPE ja_JP.UTF-8
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP.UTF-8
 
 WORKDIR /usr/src/app
 
