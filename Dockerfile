@@ -10,7 +10,7 @@ RUN set -x && \
       curl \
       ssh \
       mysql-client \
-      libmysqlclient-dev \
+      default-libmysqlclient-dev \
       libmagickwand-dev \
       imagemagick && \
       rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
