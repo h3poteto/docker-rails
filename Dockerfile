@@ -1,4 +1,4 @@
-FROM ruby:2.6.3-slim-buster
+FROM ruby:3.0.0-slim-buster
 
 # prepare packages
 RUN set -x && \
