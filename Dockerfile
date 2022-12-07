@@ -1,4 +1,4 @@
-FROM ruby:3.1.3-slim-buster
+FROM ruby:3.1.3-slim-bullseye
 
 # prepare packages
 RUN set -x && \
@@ -11,11 +11,13 @@ RUN set -x && \
     ssh \
     default-mysql-client \
     default-libmysqlclient-dev \
-    pgcli \
     libpq-dev \
+    python-dev \
+    python3-pip \
     python3-setuptools \
     libmagickwand-dev \
     imagemagick && \
+    pip install pgcli &&  \
     rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
 
 
