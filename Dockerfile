@@ -1,4 +1,4 @@
-FROM ruby:3.0.3-slim-buster
+FROM ruby:3.1.3-slim-buster
 
 # prepare packages
 RUN set -x && \
@@ -30,7 +30,7 @@ RUN echo 'ja_JP.UTF-8 UTF-8' >> /etc/locale.gen && \
 
 USER rails
 
-# localeの設定
+# locale
 ENV LC_CTYPE ja_JP.UTF-8
 ENV LANG ja_JP.UTF-8
 ENV LANGUAGE ja_JP.UTF-8
